@@ -1,7 +1,7 @@
 # AWS Glue Lakehouse ETL Pipeline
 End-to-end Lakehouse ETL pipeline built on AWS using Glue (PySpark) and a layered Bronze, Silver and Gold architecture.
 
-## 📌 Project Overview
+## Project Overview
 
 This project demonstrates the implementation of a complete data pipeline using:
 
@@ -14,7 +14,7 @@ This project demonstrates the implementation of a complete data pipeline using:
 
 The pipeline simulates a real-world data engineering workflow with orchestration between layers.
 ---
-## 🏗 Architecture
+## Architecture
 
 Schedule Trigger (optional)
         ↓
@@ -30,29 +30,29 @@ Job Gold (Business aggregation)
 
 ---
 
-## 🧱 Layer Description
+## Layer Description
 
-### 🥉 Bronze Layer
+### Bronze Layer
 - Raw data ingestion
 - Schema discovery via Glue Crawler
 - Stored in S3 as raw datasets
 
-### 🥈 Silver Layer
+### Silver Layer
 - Data cleaning and transformation
 - Standardization and enrichment
 - Processed with PySpark
 
-### 🥇 Gold Layer
+### Gold Layer
 - Aggregated and business-ready datasets
 - Optimized for analytics and Athena queries
 ---
-## ⚙️ Orchestration
+## Orchestration
 
 - Glue Workflow coordinates all stages
 - Conditional triggers ensure dependency order
 - Scheduled trigger can be activated for automated execution
 ---
-## 🛠 Technologies Used
+## Technologies Used
 - AWS Glue
 - Amazon S3
 - PySpark
@@ -60,10 +60,10 @@ Job Gold (Business aggregation)
 - Amazon Athena
 - Parquet format
 ---
-## 🎯 Purpose
+## Purpose
 
 This project was developed to simulate a production-ready data engineering pipeline using AWS-native services and modern Lakehouse architecture principles.
 ---
-## 📌 Author
+## Author
 
 Manoel Alexandre Peres
