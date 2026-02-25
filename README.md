@@ -1,7 +1,7 @@
 # AWS Glue Lakehouse ETL Pipeline
 End-to-end Lakehouse ETL pipeline built on AWS using Glue (PySpark) and a layered Bronze, Silver and Gold architecture.
 
-## 🏗 Architecture Diagram
+## Architecture Diagram
 
 ![Architecture](docs/architecture.png)
 ## Project Overview
@@ -64,7 +64,7 @@ Job Gold (Business aggregation)
 - Parquet format
 ---
 
-## 🧠 Design Decisions
+## Design Decisions
 
 - Bronze/Silver/Gold architecture was chosen to separate raw ingestion, transformation, and business-level aggregation.
 - Data in the Silver layer is partitioned by `year` and `month` to optimize query performance in Athena.
