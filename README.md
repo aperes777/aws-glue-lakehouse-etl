@@ -1,81 +1,91 @@
 # AWS Glue Lakehouse ETL Pipeline
-End-to-end Lakehouse ETL pipeline built on AWS using Glue (PySpark) and a layered Bronze, Silver and Gold architecture.
 
-## Architecture Diagram
+Pipeline ETL end-to-end construído na AWS utilizando Glue (PySpark) e arquitetura em camadas Bronze, Silver e Gold no padrão Lakehouse.
+
+---
+
+## Diagrama de Arquitetura
 
 ![Architecture](docs/architecture.png)
-## Project Overview
-
-This project demonstrates the implementation of a complete data pipeline using:
-
-- AWS Glue ETL Jobs built with PySpark
-- Amazon S3 (Data Lake storage)
-- PySpark
-- AWS Data Catalog
-- Athena
-- Scheduled and Conditional Triggers
-
-The pipeline simulates a real-world data engineering workflow with orchestration between layers.
----
-## Architecture
-
-Schedule Trigger (optional)
-        ↓
-Crawler Bronze
-        ↓
-Trigger Silver (Conditional)
-        ↓
-Job Silver (Data transformation)
-        ↓
-Trigger Gold (Conditional)
-        ↓
-Job Gold (Business aggregation)
 
 ---
 
-## Layer Description
+## Visão Geral do Projeto
 
-### Bronze Layer
-- Raw data ingestion
-- Schema discovery via Glue Crawler
-- Stored in S3 as raw datasets
+Este projeto demonstra a implementação de um pipeline completo de engenharia de dados utilizando serviços gerenciados da AWS:
 
-### Silver Layer
-- Data cleaning and transformation
-- Standardization and enrichment
-- Processed with PySpark
+- AWS Glue ETL Jobs (PySpark)
+- Amazon S3 como Data Lake
+- AWS Glue Crawler e Data Catalog
+- Amazon Athena para consultas analíticas
+- Glue Workflow para orquestração
+- EventBridge Scheduler para agendamento
+- Formato Parquet para armazenamento otimizado
 
-### Gold Layer
-- Aggregated and business-ready datasets
-- Optimized for analytics and Athena queries
----
-## Orchestration
+O pipeline simula um fluxo real de engenharia de dados com controle de dependências, automação e separação clara de responsabilidades entre camadas.
 
-- Glue Workflow coordinates all stages
-- Conditional triggers ensure dependency order
-- Scheduled trigger can be activated for automated execution
----
-## Technologies Used
-- AWS Glue
-- Amazon S3
-- PySpark
-- AWS Data Catalog
-- Amazon Athena
-- Parquet format
 ---
 
-## Design Decisions
+## Fluxo do Pipeline
 
-- Bronze/Silver/Gold architecture was chosen to separate raw ingestion, transformation, and business-level aggregation.
-- Data in the Silver layer is partitioned by `year` and `month` to optimize query performance in Athena.
-- AWS Glue Crawler is used for automatic schema discovery and metadata registration in the Data Catalog.
-- Glue Workflows combined with EventBridge Scheduler enable orchestration and automation of the pipeline.
-- Parquet format is used in processed layers for columnar storage efficiency.
-  
-## Purpose
+EventBridge Scheduler (opcional)  
+↓  
+Glue Workflow  
+↓  
+Crawler Bronze  
+↓  
+Job Silver (transformações)  
+↓  
+Job Gold (agregações de negócio)  
 
-This project was developed to simulate a production-ready data engineering pipeline using AWS-native services and modern Lakehouse architecture principles.
 ---
-## Author
+
+## Descrição das Camadas
+
+### Camada Bronze
+- Ingestão de dados brutos no Amazon S3  
+- Descoberta automática de esquema via Glue Crawler  
+- Nenhuma transformação aplicada  
+- Camada imutável que representa a fonte original dos dados  
+
+### Camada Silver
+- Limpeza e transformação dos dados com PySpark  
+- Junção entre datasets de vendas (sales) e clientes (customers)  
+- Engenharia de atributos (conversão de timestamp e extração de year/month)  
+- Particionamento por `year` e `month`  
+- Armazenamento em formato Parquet  
+
+### Camada Gold
+- Agregações de nível de negócio  
+- Cálculo de receita por ano  
+- Dados prontos para consumo analítico no Athena  
+
+---
+
+## Orquestração
+
+- Glue Workflow coordena a execução das etapas  
+- Triggers condicionais garantem a ordem correta de execução  
+- EventBridge Scheduler permite execução automática programada  
+
+---
+
+## Decisões de Arquitetura
+
+- A arquitetura Bronze/Silver/Gold foi adotada para separar ingestão, transformação e agregação de negócio.
+- O particionamento por `year` e `month` melhora a performance das consultas no Athena.
+- O Glue Crawler gerencia metadados separadamente da lógica de transformação.
+- Os Glue Jobs são parametrizados utilizando `--OUTPUT_PATH`, aumentando portabilidade e reutilização.
+- O formato Parquet foi escolhido por sua eficiência de armazenamento e leitura colunar.
+
+---
+
+## Objetivo
+
+Este projeto foi desenvolvido para simular um pipeline de engenharia de dados com padrão próximo a ambientes produtivos, utilizando princípios modernos de Data Lake e Lakehouse.
+
+---
+
+## 👤 Autor
 
 Manoel Alexandre Peres
