@@ -1,6 +1,9 @@
 # AWS Glue Lakehouse ETL Pipeline
 End-to-end Lakehouse ETL pipeline built on AWS using Glue (PySpark) and a layered Bronze, Silver and Gold architecture.
 
+## 🏗 Architecture Diagram
+
+![Architecture](docs/architecture.png)
 ## Project Overview
 
 This project demonstrates the implementation of a complete data pipeline using:
