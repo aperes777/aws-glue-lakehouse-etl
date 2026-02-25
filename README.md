@@ -86,6 +86,6 @@ Este projeto foi desenvolvido para simular um pipeline de engenharia de dados co
 
 ---
 
-## 👤 Autor
+## Autor
 
 Manoel Alexandre Peres
