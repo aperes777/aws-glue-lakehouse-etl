@@ -13,10 +13,10 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
-# Read Silver table from Data Catalog
+# Lendo a Silver do Data Catalog
 silver_df = spark.table("glue_lakehouse_db.silver_sales")
 
-# Create Gold aggregation
+# Criando a Gold (agregação)
 gold_df = (
     silver_df
     .groupBy("year")
@@ -27,7 +27,7 @@ gold_df = (
     .orderBy("year")
 )
 
-# Write to S3 as Parquet
+# Escrevendo no S3 em Parquet
 gold_df.write \
     .mode("overwrite") \
     .parquet("s3://etl-glue-portfolio-alexandre-2026/analytics/gold_revenue_by_year/")
