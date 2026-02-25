@@ -7,7 +7,7 @@ from pyspark.sql.functions import col, concat_ws, year, month, to_timestamp, to_
 
 
 # Job init
-args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+args = getResolvedOptions(sys.argv, ['JOB_NAME', 'OUTPUT_PATH'])
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
@@ -15,14 +15,14 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 # =========================
-# 1️⃣ Read Bronze Tables
+# Read Bronze Tables
 # =========================
 
 sales_df = spark.table("glue_lakehouse_db.sales")
 customers_df = spark.table("glue_lakehouse_db.customers")
 
 # =========================
-# 2️⃣ Transformations
+# Transformations
 # =========================
 
 # Convert timestamp uma única vez
@@ -48,7 +48,7 @@ customers_df = customers_df.withColumn(
 )
 
 # =========================
-# 3️⃣ Join Sales + Customers
+# Join Sales + Customers
 # =========================
 
 customers_selected = customers_df.select(
@@ -72,13 +72,15 @@ silver_df = sales_df.join(
 #==========================
 
 # =========================
-# 4️⃣ Write Silver Layer (Parquet + Partition)
+# Write Silver Layer (Parquet + Partition)
 # =========================
+
+output_path = args['OUTPUT_PATH']
 
 silver_df.write \
     .mode("overwrite") \
     .partitionBy("year", "month") \
-    .parquet("s3://etl-glue-portfolio-alexandre-2026/processed/silver_sales/")
+    .parquet(output_path)
 
 job.commit()
 
