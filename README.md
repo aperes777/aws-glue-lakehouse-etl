@@ -63,6 +63,15 @@ Job Gold (Business aggregation)
 - Amazon Athena
 - Parquet format
 ---
+
+## 🧠 Design Decisions
+
+- Bronze/Silver/Gold architecture was chosen to separate raw ingestion, transformation, and business-level aggregation.
+- Data in the Silver layer is partitioned by `year` and `month` to optimize query performance in Athena.
+- AWS Glue Crawler is used for automatic schema discovery and metadata registration in the Data Catalog.
+- Glue Workflows combined with EventBridge Scheduler enable orchestration and automation of the pipeline.
+- Parquet format is used in processed layers for columnar storage efficiency.
+  
 ## Purpose
 
 This project was developed to simulate a production-ready data engineering pipeline using AWS-native services and modern Lakehouse architecture principles.
