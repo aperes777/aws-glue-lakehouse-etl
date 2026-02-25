@@ -6,7 +6,7 @@ from awsglue.job import Job
 from pyspark.sql.functions import col, concat_ws, year, month, to_timestamp, to_date
 
 
-# Job init
+# Job inicial
 args = getResolvedOptions(sys.argv, ['JOB_NAME', 'OUTPUT_PATH'])
 sc = SparkContext()
 glueContext = GlueContext(sc)
@@ -15,14 +15,14 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 # =========================
-# Read Bronze Tables
+# Lendo a tabela Bronze
 # =========================
 
 sales_df = spark.table("glue_lakehouse_db.sales")
 customers_df = spark.table("glue_lakehouse_db.customers")
 
 # =========================
-# Transformations
+# Transformações
 # =========================
 
 # Convert timestamp uma única vez
@@ -35,13 +35,13 @@ sales_df = sales_df.withColumn(
 sales_df = sales_df.withColumn("year", year(col("timestamp")))
 sales_df = sales_df.withColumn("month", month(col("timestamp")))
 
-# Convert birthday
+# Convertendo data de aniversário
 customers_df = customers_df.withColumn(
     "birthday",
     to_date(col("birthday"))
 )
 
-# Create full_name
+# Criando coluna Fullname
 customers_df = customers_df.withColumn(
     "full_name",
     concat_ws(" ", col("firstname"), col("lastname"))
@@ -72,7 +72,7 @@ silver_df = sales_df.join(
 #==========================
 
 # =========================
-# Write Silver Layer (Parquet + Partition)
+#Escrevendo na camada Silver (Parquet + Partition)
 # =========================
 
 output_path = args['OUTPUT_PATH']
