@@ -12,7 +12,7 @@ Pipeline ETL end-to-end construído na AWS utilizando Glue (PySpark) e arquitetu
 
 ## Visão Geral do Projeto
 
-Projeto de engenharia de dados desenvolvido na AWS para simular um pipeline completo de ingestão, transformação, catalogação e consulta analítica de dados em um data lake:
+Este projeto demonstra a implementação de um pipeline completo de engenharia de dados utilizando serviços gerenciados da AWS:
 
 - AWS Glue ETL Jobs (PySpark) para processamento e transformação dos dados
 
