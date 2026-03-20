@@ -26,8 +26,8 @@ Este projeto demonstra a implementação de um pipeline completo de engenharia d
 
 - Amazon EventBridge Scheduler para agendamento automatizado das execuções
 
-Formato Parquet para otimização de armazenamento e performance nas consultas
-O pipeline simula um fluxo real de engenharia de dados com controle de dependências, automação e separação clara de responsabilidades entre camadas.
+- Formato Parquet para otimização de armazenamento e performance nas consultas
+O pipeline foi estruturado para representar um cenário real de engenharia de dados, com execução automatizada, catalogação de metadados, controle de dependências e organização em camadas.
 
 ---
 
